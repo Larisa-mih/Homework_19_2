@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "homework-19-2"
+version = "0.1.0"
+description = ""
+authors = ["larisa <larisa.mih2004@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.3"
+asgiref = "^3.8.1"
+sqlparse = "^0.4.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
