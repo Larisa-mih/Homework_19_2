@@ -23,7 +23,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена за покупку')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
-
+    manufactured_at = models.DateField(**NULLABLE, verbose_name='Дата производства продукта')
 
     def __str__(self):
         return f'Имя продукта: {self.name}  Категория:{self.category}   Цена: {self.price} рублей'
