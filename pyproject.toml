@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "homework-19-2"
+name = "Homework_Django"
 version = "0.1.0"
 description = ""
 authors = ["larisa <larisa.mih2004@gmail.com>"]
