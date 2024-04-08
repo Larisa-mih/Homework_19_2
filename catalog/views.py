@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from catalog.models import Product, Contacts
 
+
 def index_contacts(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -14,7 +15,18 @@ def index_contacts(request):
 
 
 def index_home(request):
-    top_products = Product.objects.order_by('-created_at')[:5]
-    for product in top_products:
-        print(f'{product.name} {product.price}')
-    return render(request, 'catalog/index_home.html', {'top_products': top_products})
+    context = {
+        'object_list': Product.objects.all(),
+        'title': 'Интернет магазин цифровой и бытовой техники - Главная'
+    }
+    return render(request, 'catalog/index_home.html', context)
+
+
+def product(request, pk):
+    product_item = Product.objects.get(pk=pk)
+    context = {
+        'object_list': Product.objects.filter(category=pk),
+        'product_item': product_item,
+        'title': f'Интернет магазин цифровой и бытовой техники - Информация по товару {product_item.name}'
+    }
+    return render(request, 'catalog/product_info.html', context)
