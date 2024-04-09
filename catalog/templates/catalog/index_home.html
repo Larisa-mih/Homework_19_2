@@ -1,6 +1,6 @@
 {% extends 'catalog/base.html' %}
-{% load my_tags %}
 {% block content %}
+{% load my_tags %}
 <div class="row text-center">
     {% for object in object_list %}
     <div class="col-3">
@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
 <!--                <img src="/media/{{ object.image }}" height="111" class="img-thumbnail">-->
-                <img src="{{ object.image|mymedia }}" height="111" class="img-thumbnail">
+                <img src="{{ object.image|mymedia }}" height="111"/>
                 <h3 class="card-title pricing-card-title">{{ object.price }} руб.</h3>
                 <span class="textarea">{{ object.description|slice:100 }}</span>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
