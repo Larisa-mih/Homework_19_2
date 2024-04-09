@@ -1,0 +1,11 @@
+[
+{
+    "model": "catalog.contacts",
+    "pk": 1,
+    "fields": {
+        "first_name": "Дмитрий",
+        "last_name": "Цой",
+        "email": "test@gmail.com"
+    }
+}
+]
