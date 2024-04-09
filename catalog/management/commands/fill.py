@@ -10,33 +10,21 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
-        with open(f"{BASE_DIR}/fixtures/catalog_data.json", encoding="UTF-8") as f:
+        with open(f"{BASE_DIR}/fixtures/001_catalog_category_data.json", encoding="UTF-8") as f:
             data = json.load(f)
-        list_categories = []
-        for category in data:
-            if 'category' in category['model']:
-                list_categories.append(category)
-        return list_categories
+        return data
 
     @staticmethod
     def json_read_products():
-        with open(f"{BASE_DIR}/fixtures/catalog_data.json", encoding="UTF-8") as f:
+        with open(f"{BASE_DIR}/fixtures/002_catalog_product_data.json", encoding="UTF-8") as f:
             data = json.load(f)
-        list_products = []
-        for product in data:
-            if 'product' in product['model']:
-                list_products.append(product)
-        return list_products
+        return data
 
     @staticmethod
     def json_read_contacts():
-        with open(f"{BASE_DIR}/fixtures/catalog_data.json", encoding="UTF-8") as f:
+        with open(f"{BASE_DIR}/fixtures/003_catalog_contacts_data.json", encoding="UTF-8") as f:
             data = json.load(f)
-        list_contacts = []
-        for contacts in data:
-            if 'contacts' in contacts['model']:
-                list_contacts.append(contacts)
-        return list_contacts
+        return data
 
     def handle(self, *args, **options):
 
@@ -56,6 +44,10 @@ class Command(BaseCommand):
             )
         Category.objects.bulk_create(category_for_create)
 
+        with connection.cursor() as cursor:
+            cursor.execute(
+                f"ALTER SEQUENCE catalog_category_id_seq RESTART WITH {Category.objects.count() + 1}")
+
         for product in Command.json_read_products():
             product_for_create.append(
                 Product(id=product['pk'],
@@ -70,6 +62,10 @@ class Command(BaseCommand):
 
         Product.objects.bulk_create(product_for_create)
 
+        with connection.cursor() as cursor:
+            cursor.execute(
+                f"ALTER SEQUENCE catalog_product_id_seq RESTART WITH {Product.objects.count() + 1}")
+
         for contact in Command.json_read_contacts():
             contact_for_create.append(
                 Contacts(id=contact['pk'],
@@ -79,3 +75,7 @@ class Command(BaseCommand):
             )
 
         Contacts.objects.bulk_create(contact_for_create)
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                f"ALTER SEQUENCE catalog_contacts_id_seq RESTART WITH {Contacts.objects.count() + 1}")
