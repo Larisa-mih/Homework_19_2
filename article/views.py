@@ -26,7 +26,7 @@ class ArticleUpdateView(UpdateView):
     success_url = reverse_lazy('article:articles')
 
     def get_success_url(self):
-        return reverse('article:article_detail', args=[self.kwargs.get('pk')])
+        return reverse('article:article_detail', args=[self.kwargs.get('slug')])
 
     def form_valid(self, form):
         if form.is_valid():
