@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from catalog.models import Product, Contacts
+from django.views.generic import ListView, DetailView
+
+from catalog.models import Product, Contacts, Feedback
 
 
 def index_contacts(request):
@@ -7,6 +9,8 @@ def index_contacts(request):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
+        feedback = Feedback(name=name, phone=phone, message=message)
+        feedback.save()
         with open('data.txt', 'a', encoding='UTF-8') as f:
             f.write(f'{name} ({phone}): {message}' + '\n')
 
@@ -14,19 +18,11 @@ def index_contacts(request):
     return render(request, 'catalog/index_contacts.html', {'contacts': contacts})
 
 
-def index_home(request):
-    context = {
-        'object_list': Product.objects.all(),
-        'title': 'Интернет магазин цифровой и бытовой техники - Главная'
-    }
-    return render(request, 'catalog/index_home.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_info.html'
 
 
-def product(request, pk):
-    product_item = Product.objects.get(pk=pk)
-    context = {
-        'object_list': Product.objects.filter(category=pk),
-        'product_item': product_item,
-        'title': f'Интернет магазин цифровой и бытовой техники - Информация по товару {product_item.name}'
-    }
-    return render(request, 'catalog/product_info.html', context)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/index_home.html'
