@@ -1,6 +1,6 @@
 {% extends 'catalog/base.html' %}
-{% block content %}
 {% load my_tags %}
+{% block content %}
 <div class="row text-center">
     {% for object in object_list %}
     <div class="col-3">
@@ -9,13 +9,20 @@
                 <h3 class="my-0 font-weight-normal">{{ object.name }}</h3>
             </div>
             <div class="card-body">
-<!--                <img src="/media/{{ object.image }}" height="111" class="img-thumbnail">-->
-                <img src="{{ object.image|mymedia }}" height="111"/>
+                <!--                <img src="/media/{{ object.image }}" height="111" class="img-thumbnail">-->
+                <img src="{{ object.image|mymedia }}" height="111" class="img-thumbnail">
                 <h3 class="card-title pricing-card-title">{{ object.price }} руб.</h3>
                 <span class="textarea">{{ object.description|slice:100 }}</span>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                 </ul>
-                <a href="{% url 'catalog:product' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Подробнее</a>
+                <div>
+                    {% if object.versions.exists %}
+                    <p>Версия {{object.name}}</p>
+                    <p>Номер версии {{object.number}}</p>
+                    {% endif %}
+                </div>
+                <a href="{% url 'catalog:product' object.pk %}" type="button"
+                   class="btn btn-lg btn-block btn-outline-primary">Подробнее</a>
             </div>
         </div>
     </div>

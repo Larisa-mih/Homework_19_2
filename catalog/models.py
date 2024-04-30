@@ -61,7 +61,7 @@ class Feedback(models.Model):
 
 
 class Version(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Наименование')
+    product = models.ForeignKey(Product, related_name='versions', on_delete=models.CASCADE, verbose_name='Наименование')
     version_number = models.IntegerField(verbose_name="номер версии")
     version_name = models.CharField(max_length=100, verbose_name="название версии")
     is_active = models.BooleanField(default=True, verbose_name='активная версия')
