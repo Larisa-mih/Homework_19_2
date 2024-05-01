@@ -9,7 +9,7 @@
                     <form method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-lg btn-block btn-outline-danger">Подтвердить</button>
-                        <a href="{% url 'article:articles' %}" type="button" class="btn btn-warning">Отмена</a>
+                        <a href="{% url 'catalog:index_home' %}" type="button" class="btn btn-warning">Отмена</a>
                     </form>
                 </div>
             </div>
