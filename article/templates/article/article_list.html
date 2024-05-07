@@ -14,12 +14,7 @@
                 <span class="textarea">{{ object.content|slice:100 }}</span>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                 </ul>
-                <a href="{% url 'article:article_detail' object.slug %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Читать</a>
-                {% if object.is_published %}
-                    <a href="{% url 'article:toggle_activity' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Снять с публикации</a>
-                {% else %}
-                    <a href="{% url 'article:toggle_activity' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Опубликовать</a>
-                {% endif %}
+                <a href="{% url 'article:article_detail' object.slug %}" type="button" class="btn btn-block btn-outline-primary">Читать</a>
             </div>
         </div>
     </div>

@@ -53,7 +53,7 @@ class UserPasswordResetView(PasswordResetView):
             user_email = self.request.POST.get('email')
             user = User.objects.filter(email=user_email).first()
             if user:
-                new_password = generate_password(16)
+                new_password = generate_password()
                 user.set_password(new_password)
                 user.save()
                 try:
@@ -69,7 +69,7 @@ class UserPasswordResetView(PasswordResetView):
                             )
                 except Exception:
                     print(f'Ошибка при отправке на почту {user_email}')
-                return HttpResponseRedirect(reverse('users:login'))
+            return HttpResponseRedirect(reverse('users:login'))
 
         return super().form_valid(form)
 
