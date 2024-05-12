@@ -17,9 +17,11 @@
                         <p>Номер версии: {{version.version_number}}</p>
                         <p>Название версии: {{version.version_name}}</p>
                     {% endif %}
+                    {% if perms.catalog.set_published_status and perms.catalog.can_change_description and perms.catalog.can_change_category or user == product.owner %}
                     <div class="col-12">
                     <a href="{% url 'catalog:update_product' object.pk %}" class="btn btn-outline-primary">Редактировать</a>
                     <a href="{% url 'catalog:delete_product' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% endif %}
                     </div>
                 </div>
             </div>
