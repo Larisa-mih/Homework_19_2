@@ -1,0 +1,11 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<h5>Список категорий</h5>
+<br>
+<div class="row text-left">
+    {% for object in object_list %}
+        <li>{{ object.name }}</li>
+    {% endfor %}
+</div>
+{% endblock %}

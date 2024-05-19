@@ -6,7 +6,9 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Contacts, Feedback, Version
+from catalog.models import Product, Contacts, Feedback, Version, Category
+
+from catalog.services import get_categories_from_cache
 
 
 def index_contacts(request):
@@ -21,6 +23,10 @@ def index_contacts(request):
 
     contacts = Contacts.objects.all()
     return render(request, 'catalog/index_contacts.html', {'contacts': contacts})
+
+
+def contact_list(request):
+    Contacts.objects.all()
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
@@ -103,4 +109,12 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
                            'catalog.can_change_category',
                            'catalog.can_change_description']):
             return ProductModeratorForm
+        raise PermissionDenied
 
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'catalog/category_list.html'
+
+    def get_queryset(self):
+        return get_categories_from_cache()
